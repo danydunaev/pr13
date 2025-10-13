@@ -19,4 +19,4 @@
 - BEM-классы, CSS-переменные, состояния элементов, смена темы.  
 - Структура соответствует 13 практике.  
 
-Ссылка на GitHub Pages: [Посмотреть сайт](https://danydunaev.github.io/frontend-and-backend-practice/)
+Ссылка на GitHub Pages: [Посмотреть сайт](https://danydunaev.github.io/pr13/)
