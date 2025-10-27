@@ -89,14 +89,21 @@
                 </div>
             </div>
 
-            <!-- Сетка проектов -->
-            <div class="row g-3" id="projects-grid">
+            <!-- Проекты -->
+            <div class="row g-3">
                 <div class="col-md-4" data-tech="html">
                     <div class="card card__block h-100">
-                        <img src="../images/project1.jpg" class="card-img-top" alt="Проект 1" style="height: 150px; object-fit: cover;">
+                        <picture>
+                            <!-- Для широких экранов (десктоп) -->
+                            <source media="(min-width: 1200px)" srcset="../images/wide-desktop1.jpg">
+                            <!-- Для планшетов -->
+                            <source media="(min-width: 768px)" srcset="../images/tablet1.jpg">
+                            <!-- Для мобильных -->
+                            <img src="../images/project1.jpg" class="card-img-top responsive-image" alt="Проект 1" style="height: 150px;">
+                        </picture>
                         <div class="card-body">
                             <h5 class="card-title">Проект 1</h5>
-                            <p class="card-text small text-muted">Работал фантазёром. Сочинял и праздновал.</p>
+                            <p class="card-text small text-muted">Описание проекта 1.</p>
                             <span class="badge__element badge bg-primary">HTML/CSS</span>
                             <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#projectModal" data-project-id="1">Подробнее</button>
                         </div>
@@ -104,10 +111,17 @@
                 </div>
                 <div class="col-md-4" data-tech="js">
                     <div class="card card__block h-100">
-                        <img src="../images/project2.jpg" class="card-img-top" alt="Проект 2" style="height: 150px; object-fit: cover;">
+                        <picture>
+                            <!-- Для широких экранов (десктоп) -->
+                            <source media="(min-width: 1200px)" srcset="../images/wide-desktop2.jpg">
+                            <!-- Для планшетов -->
+                            <source media="(min-width: 768px)" srcset="../images/tablet2.jpg">
+                            <!-- Для мобильных -->
+                            <img src="../images/project2.jpg" class="card-img-top responsive-image" alt="Проект 2" style="height: 150px;">
+                        </picture>
                         <div class="card-body">
                             <h5 class="card-title">Проект 2</h5>
-                            <p class="card-text small text-muted">Работал воровством. Воровал и продавал.</p>
+                            <p class="card-text small text-muted">Описание проекта 2.</p>
                             <span class="badge__element badge bg-success">JavaScript</span>
                             <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#projectModal" data-project-id="2">Подробнее</button>
                         </div>
@@ -115,7 +129,14 @@
                 </div>
                 <div class="col-md-4" data-tech="react">
                     <div class="card card__block h-100">
-                        <img src="../images/project3.jpg" class="card-img-top" alt="Проект 3" style="height: 150px; object-fit: cover;">
+                        <picture>
+                            <!-- Для широких экранов (десктоп) -->
+                            <source media="(min-width: 1200px)" srcset="../images/wide-desktop3.jpg">
+                            <!-- Для планшетов -->
+                            <source media="(min-width: 768px)" srcset="../images/tablet3.jpg">
+                            <!-- Для мобильных -->
+                            <img src="../images/project3.jpg" class="card-img-top responsive-image" alt="Проект 3" style="height: 150px;">
+                        </picture>
                         <div class="card-body">
                             <h5 class="card-title">Проект 3</h5>
                             <p class="card-text small text-muted">Работал рэпером. Читал и пел.</p>
@@ -126,7 +147,14 @@
                 </div>
                 <div class="col-md-4" data-tech="html">
                     <div class="card card__block h-100">
-                        <img src="../images/project4.jpg" class="card-img-top" alt="Проект 4" style="height: 150px; object-fit: cover;">
+                        <picture>
+                            <!-- Для широких экранов (десктоп) -->
+                            <source media="(min-width: 1200px)" srcset="../images/wide-desktop4.jpg">
+                            <!-- Для планшетов -->
+                            <source media="(min-width: 768px)" srcset="../images/tablet4.jpg">
+                            <!-- Для мобильных -->
+                            <img src="../images/project4.jpg" class="card-img-top responsive-image" alt="Проект 4" style="height: 150px;">
+                        </picture>
                         <div class="card-body">
                             <h5 class="card-title">Проект 4</h5>
                             <p class="card-text small text-muted">Дополнительный проект.</p>

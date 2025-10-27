@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="ru" data-bs-theme="light">
 <head>
@@ -64,7 +65,14 @@
                     <div class="card-body p-4">
                         <div class="row align-items-center">
                             <div class="col-md-3 text-center mb-3 mb-md-0">
-                                <img src="images/photo.png" alt="Фото студента" class="img__profile" style="width: 150px; height: 150px; object-fit: cover;">
+                                <picture>
+                                    <!-- WebP для современных браузеров -->
+                                    <source srcset="images/portrait.webp" type="image/webp">
+                                    <!-- JPEG для старых браузеров -->
+                                    <source srcset="images/portrait.jpeg" type="image/jpeg">
+                                    <!-- Фолбэк -->
+                                    <img src="images/photo.png" srcset="images/photo.png 1x, images/photo@2x.png 2x" alt="Фото студента" class="img__profile responsive-image retina-image" style="width: 150px; height: 150px; object-fit: cover;" loading="lazy">
+                                </picture>
                             </div>
                             <div class="col-md-9">
                                 <h2 class="card-title h4 text-primary">Дунаев Даниил Романович</h2>
@@ -84,27 +92,17 @@
                         <h3 class="h5 mb-0"><i class="bi bi-tools text-primary me-1"></i>Мои навыки</h3>
                     </div>
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <div class="d-flex justify-content-between mb-1"><span>Навык 1</span><span class="text-primary">90%</span></div>
-                                    <div class="progress progress__bar"><div class="progress-bar bg-primary" style="width: 90%"></div></div>
-                                </div>
-                                <div class="mb-3">
-                                    <div class="d-flex justify-content-between mb-1"><span>Навык 2</span><span class="text-primary">75%</span></div>
-                                    <div class="progress progress__bar"><div class="progress-bar bg-success" style="width: 75%"></div></div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <div class="d-flex justify-content-between mb-1"><span>Навык 3</span><span class="text-primary">85%</span></div>
-                                    <div class="progress progress__bar"><div class="progress-bar bg-info" style="width: 85%"></div></div>
-                                </div>
-                                <div class="mb-3">
-                                    <div class="d-flex justify-content-between mb-1"><span>Навык 4</span><span class="text-primary">70%</span></div>
-                                    <div class="progress progress__bar"><div class="progress-bar bg-warning" style="width: 70%"></div></div>
-                                </div>
-                            </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1"><span>HTML/CSS</span><span class="text-primary">90%</span></div>
+                            <div class="progress progress__bar"><div class="progress-bar bg-primary" style="width: 90%"></div></div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1"><span>JavaScript</span><span class="text-primary">80%</span></div>
+                            <div class="progress progress__bar"><div class="progress-bar bg-success" style="width: 80%"></div></div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1"><span>Bootstrap</span><span class="text-primary">70%</span></div>
+                            <div class="progress progress__bar"><div class="progress-bar bg-warning" style="width: 70%"></div></div>
                         </div>
                     </div>
                 </div>
@@ -117,10 +115,23 @@
                         <h3 class="h5 mb-0"><i class="bi bi-folder-fill text-primary me-1"></i>Лучшие проекты</h3>
                     </div>
                     <div class="card-body">
-                        <div class="row g-3">
-                            <div class="col-md-4">
-                                <div class="card card__block h-100">
-                                    <img src="images/project1.jpg" class="card-img-top" alt="Проект 1" style="height: 150px; object-fit: cover;">
+                        <div class="gallery">
+                            <div class="gallery__item">
+                                <div class="gallery__image-container">
+                                    <picture>
+                                        <!-- WebP для десктопа -->
+                                        <source media="(min-width: 1200px)" srcset="images/wide-desktop1.webp" type="image/webp">
+                                        <!-- WebP для планшетов -->
+                                        <source media="(min-width: 768px)" srcset="images/tablet1.webp" type="image/webp">
+                                        <!-- WebP для мобильных -->
+                                        <source srcset="images/project1.webp" type="image/webp">
+                                        <!-- Для широких экранов (десктоп) -->
+                                        <source media="(min-width: 1200px)" srcset="images/wide-desktop1.jpg">
+                                        <!-- Для планшетов -->
+                                        <source media="(min-width: 768px)" srcset="images/tablet1.jpg">
+                                        <!-- Для мобильных -->
+                                        <img src="images/project1.jpg" srcset="images/project1.jpg 1x, images/project1@2x.jpg 2x" class="gallery__image responsive-image retina-image" alt="Проект 1" style="height: 150px; object-fit: cover;" loading="lazy">
+                                    </picture>
                                     <div class="card-body">
                                         <h5 class="card-title">Проект 1</h5>
                                         <p class="card-text small text-muted">Описание проекта 1.</p>
@@ -128,9 +139,22 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="card card__block h-100">
-                                    <img src="images/project2.jpg" class="card-img-top" alt="Проект 2" style="height: 150px; object-fit: cover;">
+                            <div class="gallery__item">
+                                <div class="gallery__image-container">
+                                    <picture>
+                                        <!-- WebP для десктопа -->
+                                        <source media="(min-width: 1200px)" srcset="images/wide-desktop2.webp" type="image/webp">
+                                        <!-- WebP для планшетов -->
+                                        <source media="(min-width: 768px)" srcset="images/tablet2.webp" type="image/webp">
+                                        <!-- WebP для мобильных -->
+                                        <source srcset="images/project2.webp" type="image/webp">
+                                        <!-- Для широких экранов (десктоп) -->
+                                        <source media="(min-width: 1200px)" srcset="images/wide-desktop2.jpg">
+                                        <!-- Для планшетов -->
+                                        <source media="(min-width: 768px)" srcset="images/tablet2.jpg">
+                                        <!-- Для мобильных -->
+                                        <img src="images/project2.jpg" srcset="images/project2.jpg 1x, images/project2@2x.jpg 2x" class="gallery__image responsive-image retina-image" alt="Проект 2" style="height: 150px; object-fit: cover;" loading="lazy">
+                                    </picture>
                                     <div class="card-body">
                                         <h5 class="card-title">Проект 2</h5>
                                         <p class="card-text small text-muted">Описание проекта 2.</p>
@@ -138,9 +162,22 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="card card__block h-100">
-                                    <img src="images/project3.jpg" class="card-img-top" alt="Проект 3" style="height: 150px; object-fit: cover;">
+                            <div class="gallery__item">
+                                <div class="gallery__image-container">
+                                    <picture>
+                                        <!-- WebP для десктопа -->
+                                        <source media="(min-width: 1200px)" srcset="images/wide-desktop3.webp" type="image/webp">
+                                        <!-- WebP для планшетов -->
+                                        <source media="(min-width: 768px)" srcset="images/tablet3.webp" type="image/webp">
+                                        <!-- WebP для мобильных -->
+                                        <source srcset="images/project3.webp" type="image/webp">
+                                        <!-- Для широких экранов (десктоп) -->
+                                        <source media="(min-width: 1200px)" srcset="images/wide-desktop3.jpg">
+                                        <!-- Для планшетов -->
+                                        <source media="(min-width: 768px)" srcset="images/tablet3.jpg">
+                                        <!-- Для мобильных -->
+                                        <img src="images/project3.jpg" srcset="images/project3.jpg 1x, images/project3@2x.jpg 2x" class="gallery__image responsive-image retina-image" alt="Проект 3" style="height: 150px; object-fit: cover;" loading="lazy">
+                                    </picture>
                                     <div class="card-body">
                                         <h5 class="card-title">Проект 3</h5>
                                         <p class="card-text small text-muted">Описание проекта 3.</p>
