@@ -1,113 +1,222 @@
-// Смена темы (без изменений)
+// Смена темы
 (() => {
-    'use strict'
-    const getStoredTheme = () => localStorage.getItem('theme')
-    const setStoredTheme = theme => localStorage.setItem('theme', theme)
+    'use strict';
+    const getStoredTheme = () => localStorage.getItem('theme');
+    const setStoredTheme = theme => localStorage.setItem('theme', theme);
+
     const getPreferredTheme = () => {
-        const storedTheme = getStoredTheme()
-        if (storedTheme) return storedTheme
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-    }
+        const storedTheme = getStoredTheme();
+        if (storedTheme) return storedTheme;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+
     const setTheme = theme => {
         if (theme === 'auto') {
-            document.documentElement.setAttribute('data-bs-theme', (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'))
+            document.documentElement.setAttribute('data-bs-theme', window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
         } else {
-            document.documentElement.setAttribute('data-bs-theme', theme)
+            document.documentElement.setAttribute('data-bs-theme', theme);
         }
-    }
-    setTheme(getPreferredTheme())
+    };
+
+   const updateNavbar = () => {
+        const navbar = document.getElementById('navbar');
+        if (navbar) {
+            // Принудительно устанавливаем тёмный фон для навигации
+            navbar.classList.remove('navbar-light', 'bg-light');
+            navbar.classList.add('navbar-dark', 'bg-dark');
+
+            // Убедимся, что текст и иконки контрастны на тёмном фоне
+            const navLinks = navbar.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.style.color = '#ffffff'; // Белый текст для контраста
+            });
+            const toggler = navbar.querySelector('.navbar-toggler');
+            if (toggler) toggler.classList.add('navbar-dark');
+        }
+    };
+
+    setTheme(getPreferredTheme());
+    updateNavbar();
+
     const showActiveTheme = (theme, focus = false) => {
-        const themeSwitcher = document.querySelector('#bd-theme')
-        if (!themeSwitcher) return
-        const themeSwitcherText = document.querySelector('#bd-theme-text')
-        const activeThemeIcon = document.querySelector('.theme-icon-active use')
-        const btnToActive = document.querySelector(`[data-bs-theme-value="${theme}"]`)
-        const svgOfActiveBtn = btnToActive.querySelector('svg use').getAttribute('href')
+        const themeSwitcher = document.querySelector('#bd-theme');
+        if (!themeSwitcher) return;
+
+        const themeSwitcherText = document.querySelector('#bd-theme-text');
+        const activeThemeIcon = document.querySelector('.theme-icon-active use');
+        const btnToActive = document.querySelector(`[data-bs-theme-value="${theme}"]`);
+        const svgOfActiveBtn = btnToActive.querySelector('svg use').getAttribute('href');
+
         document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
-            element.classList.remove('active')
-            element.setAttribute('aria-pressed', 'false')
-        })
-        btnToActive.classList.add('active')
-        btnToActive.setAttribute('aria-pressed', 'true')
-        activeThemeIcon.setAttribute('href', svgOfActiveBtn)
-        const themeSwitcherLabel = `${themeSwitcherText.textContent} (${btnToActive.dataset.bsThemeValue})`
-        themeSwitcher.setAttribute('aria-label', themeSwitcherLabel)
-        if (focus) themeSwitcher.focus()
-    }
+            element.classList.remove('active');
+            element.setAttribute('aria-pressed', 'false');
+        });
+
+        btnToActive.classList.add('active');
+        btnToActive.setAttribute('aria-pressed', 'true');
+        activeThemeIcon.setAttribute('href', svgOfActiveBtn);
+        const themeSwitcherLabel = `${themeSwitcherText.textContent} (${btnToActive.dataset.bsThemeValue})`;
+        themeSwitcher.setAttribute('aria-label', themeSwitcherLabel);
+
+        const liveRegion = document.createElement('div');
+        liveRegion.setAttribute('aria-live', 'polite');
+        liveRegion.setAttribute('role', 'status');
+        liveRegion.classList.add('visually-hidden');
+        liveRegion.textContent = `Тема изменена на ${btnToActive.dataset.bsThemeValue}`;
+        document.body.appendChild(liveRegion);
+        setTimeout(() => liveRegion.remove(), 3000);
+
+        if (focus) themeSwitcher.focus();
+    };
+
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-        const storedTheme = getStoredTheme()
-        if (storedTheme !== 'light' && storedTheme !== 'dark') setTheme(getPreferredTheme())
-    })
+        const storedTheme = getStoredTheme();
+        if (storedTheme !== 'light' && storedTheme !== 'dark') {
+            setTheme(getPreferredTheme());
+            updateNavbar();
+        }
+    });
+
     window.addEventListener('DOMContentLoaded', () => {
-        showActiveTheme(getPreferredTheme())
+        showActiveTheme(getPreferredTheme());
+        updateNavbar();
+
         document.querySelectorAll('[data-bs-theme-value]').forEach(toggle => {
             toggle.addEventListener('click', () => {
-                const theme = toggle.getAttribute('data-bs-theme-value')
-                setStoredTheme(theme)
-                setTheme(theme)
-                showActiveTheme(theme, true)
-            })
-        })
-    })
+                const theme = toggle.getAttribute('data-bs-theme-value');
+                setStoredTheme(theme);
+                setTheme(theme);
+                showActiveTheme(theme, true);
+                updateNavbar();
+            });
+        });
+    });
 })();
 
 // Валидация и добавление записей в формы (для diary и contacts)
 window.addEventListener('DOMContentLoaded', () => {
     ['diaryForm', 'contactForm'].forEach(formId => {
-        const form = document.getElementById(formId)
+        const form = document.getElementById(formId);
         if (form) {
+            const inputs = form.querySelectorAll('input, textarea');
+            const statusRegion = document.getElementById('form-status');
+
+            // Прогрессивная валидация на input
+            inputs.forEach(input => {
+                input.addEventListener('input', () => {
+                    if (input.validity.valid) {
+                        input.classList.remove('is-invalid');
+                        input.setAttribute('aria-invalid', 'false');
+                    } else {
+                        input.classList.add('is-invalid');
+                        input.setAttribute('aria-invalid', 'true');
+                    }
+                });
+            });
+
             form.addEventListener('submit', event => {
-                event.preventDefault(); // Всегда предотвращаем дефолт, чтобы обработать JS
-                form.classList.add('was-validated');
-                if (!form.checkValidity()) {
-                    // Установить aria-invalid на invalid поля для доступности
-                    form.querySelectorAll(':invalid').forEach(field => {
-                        field.setAttribute('aria-invalid', 'true');
-                    });
-                    event.stopPropagation();
-                } else {
-                    // Сброс aria-invalid на всех полях
-                    form.querySelectorAll('[aria-invalid]').forEach(field => {
-                        field.removeAttribute('aria-invalid');
-                    });
-                    // Успешная валидация
+                event.preventDefault();
+
+                // Сброс всех валидационных состояний перед проверкой
+                form.classList.remove('was-validated');
+                inputs.forEach(input => {
+                    input.classList.remove('is-invalid');
+                    input.setAttribute('aria-invalid', 'false');
+                });
+                if (statusRegion) {
+                    statusRegion.textContent = '';
+                    statusRegion.classList.remove('alert', 'alert-success', 'alert-danger');
+                }
+
+                // Проверка валидности
+                if (form.checkValidity()) {
                     if (formId === 'diaryForm') {
-                        // Добавляем новую запись в хронологию
+                        // Добавление записи в дневник
                         const date = document.getElementById('date').value;
                         const topic = document.getElementById('topic').value;
-                        const description = document.getElementById('description').value; // Не используется в li, но можно добавить
+                        const description = document.getElementById('description').value;
                         const status = document.getElementById('status').value === 'done' ? '✓' : '⏳';
                         const badgeClass = status === '✓' ? 'bg-success' : 'bg-warning';
 
-                        const listGroup = document.querySelector('.list-group'); // UL с хронологией
+                        const listGroup = document.querySelector('.list-group');
                         const newItem = document.createElement('li');
                         newItem.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
+                        newItem.setAttribute('role', 'listitem');
                         newItem.innerHTML = `
-                            ${date} - ${topic}
-                            <span class="badge ${badgeClass}">${status}</span>
+                            <span>${date} - ${topic}</span>
+                            <span class="badge ${badgeClass}" aria-label="Статус: ${status === '✓' ? 'Выполнено' : 'В процессе'}">${status}</span>
                         `;
-                        listGroup.prepend(newItem); // Добавляем в начало списка (новые сверху)
+                        listGroup.prepend(newItem);
 
-                        // Используем aria-live для объявления изменения (если есть регион)
-                        const statusRegion = document.getElementById('form-status'); // Предполагаем, что добавлен в HTML
                         if (statusRegion) {
-                            statusRegion.textContent = 'Новая запись добавлена в дневник.';
+                            statusRegion.textContent = `Новая запись "${topic}" добавлена в дневник.`;
+                            statusRegion.classList.add('alert', 'alert-success');
+                            statusRegion.setAttribute('aria-live', 'polite');
+                            statusRegion.focus();
+                            setTimeout(() => {
+                                statusRegion.textContent = '';
+                                statusRegion.classList.remove('alert', 'alert-success');
+                            }, 3000);
                         }
-
-                        // Очищаем форму
-                        form.reset();
                     } else if (formId === 'contactForm') {
-                        // Для контактов: Симуляция отправки с доступным сообщением
-                        const statusRegion = document.getElementById('form-status'); // Должен быть в HTML с aria-live="polite"
                         if (statusRegion) {
-                            statusRegion.textContent = 'Сообщение отправлено! (Симуляция)';
+                            statusRegion.textContent = 'Сообщение успешно отправлено!';
+                            statusRegion.classList.add('alert', 'alert-success');
+                            statusRegion.setAttribute('aria-live', 'polite');
+                            statusRegion.focus();
+                            setTimeout(() => {
+                                statusRegion.textContent = '';
+                                statusRegion.classList.remove('alert', 'alert-success');
+                            }, 3000);
                         } else {
-                            alert('Сообщение отправлено! (Симуляция)'); // Фоллбек, но лучше aria-live
+                            alert('Сообщение отправлено! (Симуляция)');
                         }
-                        form.reset();
+                    }
+
+                    // Полный сброс формы
+                    form.reset();
+                    form.classList.remove('was-validated');
+                    inputs.forEach(input => {
+                        input.classList.remove('is-invalid');
+                        input.setAttribute('aria-invalid', 'false');
+                    });
+                } else {
+                    // Ошибка
+                    form.classList.add('was-validated');
+                    inputs.forEach(input => {
+                        if (!input.validity.valid) {
+                            input.classList.add('is-invalid');
+                            input.setAttribute('aria-invalid', 'true');
+                        }
+                    });
+                    const firstInvalid = form.querySelector(':invalid');
+                    if (firstInvalid) firstInvalid.focus();
+
+                    if (statusRegion) {
+                        statusRegion.textContent = 'Пожалуйста, заполните все обязательные поля.';
+                        statusRegion.classList.add('alert', 'alert-danger');
+                        statusRegion.setAttribute('aria-live', 'assertive');
                     }
                 }
-            }, false);
+            });
+
+            // Обработка Escape для сброса формы
+            form.addEventListener('keydown', event => {
+                if (event.key === 'Escape') {
+                    form.reset();
+                    form.classList.remove('was-validated');
+                    inputs.forEach(input => {
+                        input.classList.remove('is-invalid');
+                        input.setAttribute('aria-invalid', 'false');
+                    });
+                    if (statusRegion) {
+                        statusRegion.textContent = 'Форма сброшена.';
+                        statusRegion.classList.remove('alert', 'alert-success', 'alert-danger');
+                        statusRegion.setAttribute('aria-live', 'polite');
+                        statusRegion.focus();
+                    }
+                }
+            });
         }
     });
 });
