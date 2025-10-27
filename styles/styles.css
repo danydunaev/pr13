@@ -254,6 +254,7 @@ picture {
     border: 2px solid #0066cc !important;
     box-shadow: 0 0 0 0.25rem rgba(0, 102, 204, 0.25) !important;
     background-color: #e6f3ff !important;
+    transition: box-shadow 0.2s ease-in-out; /* Плавный переход */
 }
 
 a:focus-visible, button:focus-visible {
@@ -268,6 +269,15 @@ a:focus-visible, button:focus-visible {
 .required-indicator {
     color: #ff0000;
     font-weight: bold;
+}
+
+/* Для динамических сообщений (aria-live) */
+[role="status"], [aria-live="polite"] {
+    padding: 0.5rem;
+    background-color: #d4edda; /* Светло-зелёный для успеха */
+    border: 1px solid #c3e6cb;
+    border-radius: 4px;
+    margin-top: 1rem;
 }
 
 /* Подвал */
@@ -320,6 +330,12 @@ a:focus-visible, button:focus-visible {
     :focus-visible {
         border: 2px solid #4da6ff !important; /* Светлее для тёмной темы */
         background-color: #1e3a8a !important;
+    }
+
+    [role="status"], [aria-live="polite"] {
+        background-color: #155724; /* Тёмно-зелёный для тёмной темы */
+        border-color: #28a745;
+        color: #ffffff;
     }
 }
 
@@ -394,5 +410,10 @@ a:focus-visible, button:focus-visible {
     
     .invalid-feedback, .required-indicator {
         color: black !important;
+    }
+
+    /* Скрыть непечатные элементы */
+    .navbar-toggler, .dropdown, iframe {
+        display: none;
     }
 }
