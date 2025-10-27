@@ -58,9 +58,18 @@ window.addEventListener('DOMContentLoaded', () => {
         if (form) {
             form.addEventListener('submit', event => {
                 event.preventDefault(); // Всегда предотвращаем дефолт, чтобы обработать JS
+                form.classList.add('was-validated');
                 if (!form.checkValidity()) {
+                    // Установить aria-invalid на invalid поля для доступности
+                    form.querySelectorAll(':invalid').forEach(field => {
+                        field.setAttribute('aria-invalid', 'true');
+                    });
                     event.stopPropagation();
                 } else {
+                    // Сброс aria-invalid на всех полях
+                    form.querySelectorAll('[aria-invalid]').forEach(field => {
+                        field.removeAttribute('aria-invalid');
+                    });
                     // Успешная валидация
                     if (formId === 'diaryForm') {
                         // Добавляем новую запись в хронологию
@@ -79,15 +88,25 @@ window.addEventListener('DOMContentLoaded', () => {
                         `;
                         listGroup.prepend(newItem); // Добавляем в начало списка (новые сверху)
 
+                        // Используем aria-live для объявления изменения (если есть регион)
+                        const statusRegion = document.getElementById('form-status'); // Предполагаем, что добавлен в HTML
+                        if (statusRegion) {
+                            statusRegion.textContent = 'Новая запись добавлена в дневник.';
+                        }
+
                         // Очищаем форму
                         form.reset();
                     } else if (formId === 'contactForm') {
-                        // Для контактов: Просто алерт или симуляция отправки (без backend)
-                        alert('Сообщение отправлено! (Симуляция)');
+                        // Для контактов: Симуляция отправки с доступным сообщением
+                        const statusRegion = document.getElementById('form-status'); // Должен быть в HTML с aria-live="polite"
+                        if (statusRegion) {
+                            statusRegion.textContent = 'Сообщение отправлено! (Симуляция)';
+                        } else {
+                            alert('Сообщение отправлено! (Симуляция)'); // Фоллбек, но лучше aria-live
+                        }
                         form.reset();
                     }
                 }
-                form.classList.add('was-validated');
             }, false);
         }
     });

@@ -7,6 +7,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../styles/styles.css">
+
+    </style>
     <script src="../scripts/main.js" defer></script>
 </head>
 <body>
@@ -24,14 +26,14 @@
                     </div>
                     <div class="col-auto">
                         <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle bg-white text-dark" type="button" id="bd-theme" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Toggle theme (auto)">
+                            <button class="btn btn-secondary dropdown-toggle bg-white text-dark" type="button" id="bd-theme" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Переключить тему (авто)">
                                 <svg class="bi my-1 theme-icon-active" width="1em" height="1em"><use href="#circle-half"></use></svg>
-                                <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
+                                <span class="visually-hidden" id="bd-theme-text">Переключить тему</span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
-                                <li><button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false"><svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#sun-fill"></use></svg>Light<svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg></button></li>
-                                <li><button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false"><svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#moon-stars-fill"></use></svg>Dark<svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg></button></li>
-                                <li><button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true"><svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#circle-half"></use></svg>Auto<svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg></button></li>
+                                <li><button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false"><svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#sun-fill"></use></svg>Светлая<svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg></button></li>
+                                <li><button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false"><svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#moon-stars-fill"></use></svg>Тёмная<svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg></button></li>
+                                <li><button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true"><svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#circle-half"></use></svg>Авто<svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg></button></li>
                             </ul>
                         </div>
                     </div>
@@ -39,18 +41,18 @@
             </div>
         </header>
 
-        <!-- Навигация -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <!-- Навигация (добавлен aria-label и aria-current) -->
+        <nav aria-label="Основная навигация" class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Переключить навигацию">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav mx-auto">
-                        <li class="nav-item"><a class="nav__link nav-link" href="../index.html"><i class="bi bi-house me-1"></i>Главная</a></li>
-                        <li class="nav-item"><a class="nav__link nav-link" href="projects.html"><i class="bi bi-folder me-1"></i>Проекты</a></li>
-                        <li class="nav-item"><a class="nav__link nav-link" href="diary.html"><i class="bi bi-journal me-1"></i>Дневник</a></li>
-                        <li class="nav-item"><a class="nav__link nav__link--active nav-link" href="contacts.html"><i class="bi bi-telephone me-1"></i>Контакты</a></li>
+                        <li class="nav-item"><a class="nav__link nav-link" href="../index.html"><i class="bi bi-house me-1" aria-hidden="true"></i>Главная</a></li>
+                        <li class="nav-item"><a class="nav__link nav-link" href="projects.html"><i class="bi bi-folder me-1" aria-hidden="true"></i>Проекты</a></li>
+                        <li class="nav-item"><a class="nav__link nav-link" href="diary.html"><i class="bi bi-journal me-1" aria-hidden="true"></i>Дневник</a></li>
+                        <li class="nav-item"><a class="nav__link nav__link--active nav-link" href="contacts.html" aria-current="page"><i class="bi bi-telephone me-1" aria-hidden="true"></i>Контакты</a></li>
                     </ul>
                 </div>
             </div>
@@ -60,29 +62,32 @@
         <main class="container my-5">
             <h1 class="text-center mb-4">Свяжитесь со мной</h1>
 
-            <!-- Форма контактов -->
+            <!-- Форма контактов (добавлены fieldset, aria-required, aria-describedby, индикаторы) -->
             <section class="mb-5">
                 <div class="card card__block shadow-sm">
                     <div class="card-header bg-body-tertiary">
-                        <h3 class="h5 mb-0"><i class="bi bi-envelope text-primary me-1"></i>Контактная форма</h3>
+                        <h2 class="h5 mb-0"><i class="bi bi-envelope text-primary me-1" aria-hidden="true"></i>Контактная форма</h2>
                     </div>
                     <div class="card-body">
                         <form id="contactForm" class="needs-validation" novalidate>
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Имя</label>
-                                <input type="text" class="form-control" id="name" required>
-                                <div class="invalid-feedback">Укажите имя.</div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" required>
-                                <div class="invalid-feedback">Укажите валидный email.</div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="message" class="form-label">Сообщение</label>
-                                <textarea class="form-control" id="message" rows="5" required></textarea>
-                                <div class="invalid-feedback">Добавьте сообщение.</div>
-                            </div>
+                            <fieldset>
+                                <legend class="visually-hidden">Заполните форму для связи</legend>
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Имя <span class="required-indicator" aria-hidden="true">*</span><span class="visually-hidden">(обязательное поле)</span></label>
+                                    <input type="text" class="form-control" id="name" required aria-required="true" aria-describedby="name-error">
+                                    <div id="name-error" class="invalid-feedback">Укажите имя.</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email <span class="required-indicator" aria-hidden="true">*</span><span class="visually-hidden">(обязательное поле)</span></label>
+                                    <input type="email" class="form-control" id="email" required aria-required="true" aria-describedby="email-error">
+                                    <div id="email-error" class="invalid-feedback">Укажите валидный email.</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="message" class="form-label">Сообщение <span class="required-indicator" aria-hidden="true">*</span><span class="visually-hidden">(обязательное поле)</span></label>
+                                    <textarea class="form-control" id="message" rows="5" required aria-required="true" aria-describedby="message-error"></textarea>
+                                    <div id="message-error" class="invalid-feedback">Добавьте сообщение.</div>
+                                </div>
+                            </fieldset>
                             <button type="submit" class="btn btn-primary">Отправить</button>
                         </form>
                     </div>
@@ -93,32 +98,32 @@
             <section class="mb-5">
                 <div class="card card__block shadow-sm">
                     <div class="card-header bg-body-tertiary">
-                        <h3 class="h5 mb-0"><i class="bi bi-info-circle text-primary me-1"></i>Контактная информация</h3>
+                        <h2 class="h5 mb-0"><i class="bi bi-info-circle text-primary me-1" aria-hidden="true"></i>Контактная информация</h2>
                     </div>
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
-                                <i class="bi bi-envelope me-2"></i>student@edu.ru
+                                <i class="bi bi-envelope me-2" aria-hidden="true"></i>student@edu.ru
                             </li>
                             <li class="list-group-item">
-                                <i class="bi bi-github me-2"></i><a href="https://github.com/danydunaev" target="_blank">GitHub: danydunaev</a>
+                                <i class="bi bi-github me-2" aria-hidden="true"></i><a href="https://github.com/danydunaev" target="_blank" rel="noopener noreferrer">GitHub: danydunaev</a>
                             </li>
                             <li class="list-group-item">
-                                <i class="bi bi-geo-alt me-2"></i>Пермь, Россия
+                                <i class="bi bi-geo-alt me-2" aria-hidden="true"></i>Пермь, Россия
                             </li>
                         </ul>
                     </div>
                 </div>
             </section>
 
-            <!-- Карта (интерактивная Yandex Map) -->
+            <!-- Карта (добавлен title для доступности) -->
             <section>
                 <div class="card card__block shadow-sm">
                     <div class="card-header bg-body-tertiary">
-                        <h3 class="h5 mb-0"><i class="bi bi-map text-primary me-1"></i>Местоположение</h3>
+                        <h2 class="h5 mb-0"><i class="bi bi-map text-primary me-1" aria-hidden="true"></i>Местоположение</h2>
                     </div>
                     <div class="card-body p-0">
-                        <iframe src="https://yandex.ru/map-widget/v1/?ll=56.317%2C58.000&z=12" width="100%" height="400" frameborder="0" allowfullscreen="true" style="position:relative;"></iframe>
+                        <iframe src="https://yandex.ru/map-widget/v1/?ll=56.317%2C58.000&z=12" width="100%" height="400" frameborder="0" allowfullscreen="true" style="position:relative;" title="Интерактивная карта Яндекс с местоположением в Перми, Россия" aria-label="Карта местоположения в Перми, Россия"></iframe>
                     </div>
                 </div>
             </section>
